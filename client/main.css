@@ -1,0 +1,9 @@
+#login-buttons {
+    padding: 15px 15px 15px 15px;
+}
+
+.login-link-text {
+    text-decoration: none !important;
+    line-height: 20px;
+    color: #777;
+}
