@@ -179,8 +179,10 @@
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/lib/interfaces/exports.js" />
         <item url="file://$USER_HOME$/.meteor/packages/reactive-var/1.0.9/web.browser/reactive-var.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/lib/interfaces/bdd.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.19.1/web.browser/moment.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/test/suite.js" />
         <item url="file://$USER_HOME$/.meteor/packages/reload/1.1.8/web.browser/deprecated.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.19.1/web.browser/export.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/test/http.meta.2.js" />
         <item url="file://$USER_HOME$/.meteor/packages/reload/1.1.8/web.browser/reload.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/test/ms.js" />
@@ -536,8 +538,10 @@
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/lib/interfaces/exports.js" />
       <root url="file://$USER_HOME$/.meteor/packages/reactive-var/1.0.9/web.browser/reactive-var.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/lib/interfaces/bdd.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.19.1/web.browser/moment.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/test/suite.js" />
       <root url="file://$USER_HOME$/.meteor/packages/reload/1.1.8/web.browser/deprecated.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.19.1/web.browser/export.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/test/http.meta.2.js" />
       <root url="file://$USER_HOME$/.meteor/packages/reload/1.1.8/web.browser/reload.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_2/web.browser/test/ms.js" />
