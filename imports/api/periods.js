@@ -12,9 +12,7 @@ if (Meteor.isServer) {
     // This code only runs on the server
     // Only publish periods that are public or belong to the current user
     Meteor.publish('periods', function periodsPublication() {
-        return Periods.find({
-            owner: this.userId
-        });
+        return Periods.find({});
     });
 }
 

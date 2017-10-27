@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Labs } from '../api/labs.js';
+import { Periods } from '../api/periods.js';
 
 import CalendarGrid from './CalendarGrid.jsx';
 import Nav from './Nav.jsx';
@@ -14,19 +15,14 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-        };
+        this.state = {};
     }
 
-
-
     render() {
-        console.log(this.props.labs);
         return (
             <div>
                 <Nav />
-                <CalendarGrid events={this.props.labs} />
+                <CalendarGrid events={this.props.labs} periods={this.props.periods} />
             </div>
         );
     }
@@ -34,17 +30,23 @@ class App extends Component {
 
 App.propTypes = {
     labs: PropTypes.array.isRequired,
+    periods: PropTypes.array,
     currentUser: PropTypes.object,
 };
 
 window.Labs = Labs;
+window.Periods = Periods;
 
 export default createContainer(() => {
-    Meteor.subscribe("schedules");
     Meteor.subscribe("labs");
+    Meteor.subscribe("periods");
+    Meteor.subscribe("schedules");
+
+    var periodsDoc = Periods.findOne({});
 
     return {
         labs: Labs.find({ owner: Meteor.userId() }).fetch(),
+        periods: (periodsDoc ? periodsDoc.periods : undefined),
         currentUser: Meteor.user(),
     };
 }, App);
