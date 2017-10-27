@@ -6,9 +6,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Labs } from '../api/labs.js';
 
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
-
 import CalendarGrid from './CalendarGrid.jsx';
+import Nav from './Nav.jsx';
 
 // App component - represents the whole app
 class App extends Component {
@@ -25,13 +24,8 @@ class App extends Component {
     render() {
         console.log(this.props.labs);
         return (
-            <div className="container">
-                <header>
-                    <h1>Labby</h1>
-
-                    <AccountsUIWrapper />
-                </header>
-
+            <div>
+                <Nav />
                 <CalendarGrid events={this.props.labs} />
             </div>
         );
