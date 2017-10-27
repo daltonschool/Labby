@@ -7,7 +7,7 @@ import CalendarEvent from './CalendarEvent.jsx';
 export default class CalendarColumn extends Component {
     render() {
         var that = this;
-        return <div className="calendarColumn">
+        return <div className="calendarColumn col-md-2">
             {this.props.events.filter(function(event) {
                 return (event.startTime.getDay() === that.props.day);
             }).map(function(event) {

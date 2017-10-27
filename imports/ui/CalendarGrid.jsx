@@ -6,7 +6,7 @@ import CalendarColumn from './CalendarColumn.jsx';
 
 export default class CalendarGrid extends Component {
     render() {
-       return <div>
+       return <div className="row">
            <CalendarColumn events={this.props.events} day={1} />
            <CalendarColumn events={this.props.events} day={2} />
            <CalendarColumn events={this.props.events} day={3} />
