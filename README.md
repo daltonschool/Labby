@@ -3,3 +3,9 @@
 [![GitHub issues](https://img.shields.io/github/issues/daltonschool/labby.svg?style=for-the-badge)](https://github.com/daltonschool/labby/issues)
 
 Labby is your one step solution to scheduling labs with other teachers at The Dalton School. Created by @daltonschool/webe.
+
+to get started:
+```
+meteor npm install
+meteor
+```
