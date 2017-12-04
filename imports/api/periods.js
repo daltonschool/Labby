@@ -49,6 +49,8 @@ Meteor.methods({
 
         var url = "https://dalton.myschoolapp.com" + token.token;
 
+        console.log(url);
+
         try {
             const ical = HTTP.call("GET", url, {});
             Periods.remove({

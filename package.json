@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "linkstate": "^1.1.0",
     "meteor-node-stubs": "~0.2.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
