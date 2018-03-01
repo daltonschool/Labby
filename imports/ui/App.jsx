@@ -9,14 +9,15 @@ import { Labs } from '../api/labs.js';
 import { Periods } from '../api/periods.js';
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import MomentLocaleUtils, {
+import {
   formatDate,
   parseDate,
 } from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
-import Moment from 'react-moment';
 import Nav from './Nav.jsx';
 import WebcalLinkUI from './WebcalLinkUI.jsx';
+import Select2 from 'react-select2-wrapper';
+
 
 // App component - represents the whole app
 class App extends React.Component {
@@ -32,14 +33,17 @@ class App extends React.Component {
             <div>
                 <Nav />
                 {!this.props.token && <WebcalLinkUI />}
+
                 <div className="container-fluid">
+
+                  {/*TODO: date selection should be a component*/}
                   <button className="btn btn-default btn-xs" onClick={this.changeDayBy.bind(this, -1)}>
                     <span className="glyphicon glyphicon-chevron-left"/>
                   </button>
                   <DayPickerInput
                     formatDate={formatDate}
                     parseDate={parseDate}
-                    disabledDays={{ daysOfWeek: [0, 7] }}
+                    disabledDays={{ daysOfWeek: [0, 6] }}
                     selectedDays={this.state.date}
                     placeholder={`${formatDate(this.state.date)}`}
                     onDayChange={this.handleDayChange}
@@ -49,6 +53,9 @@ class App extends React.Component {
                     <span className="glyphicon glyphicon-chevron-right"/>
                   </button>
                   <br/>
+
+                  {/*TODO: person selection should be a component*/}
+
                   <CalendarDay
                         date={ this.state.date }
                         periods={ this.props.periods.filter(function(event) {
