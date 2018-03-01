@@ -8,9 +8,12 @@
     "classnames": "^2.2.5",
     "linkstate": "^1.1.0",
     "meteor-node-stubs": "~0.2.0",
+    "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
     "react-addons-pure-render-mixin": "^15.1.0",
-    "react-dom": "^15.6.2"
+    "react-day-picker": "^7.0.7",
+    "react-dom": "^15.6.2",
+    "react-moment": "^0.7.0"
   }
 }
