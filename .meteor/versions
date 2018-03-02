@@ -62,6 +62,7 @@ momentjs:moment@2.20.1
 mongo@1.4.4
 mongo-dev-server@1.1.0
 mongo-id@1.0.6
+natestrauser:select2@4.0.3
 npm-bcrypt@0.9.3
 npm-mongo@2.2.34
 oauth@1.2.1

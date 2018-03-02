@@ -269,9 +269,11 @@
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/hook.async.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/hook.sync.nested.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/jsapi/index.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/natestrauser_select2/4.0.3/web.browser/lib/select2/dist/js/select2.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/ui.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/large.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/grep.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/natestrauser_select2/4.0.3/web.browser/lib/select2/dist/css/select2.css" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/stack-trace.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/array.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/multiple-done.js" />
@@ -696,9 +698,11 @@
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/hook.async.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/hook.sync.nested.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/jsapi/index.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/natestrauser_select2/4.0.3/web.browser/lib/select2/dist/js/select2.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/ui.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/large.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/grep.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/natestrauser_select2/4.0.3/web.browser/lib/select2/dist/css/select2.css" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/stack-trace.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/array.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.browser/test/browser/multiple-done.js" />

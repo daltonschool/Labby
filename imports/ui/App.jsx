@@ -7,6 +7,9 @@ import CalendarDay from './CalendarDay.jsx'
 import { CalendarTokens } from '../api/calendarTokens.js';
 import { Labs } from '../api/labs.js';
 import { Periods } from '../api/periods.js';
+import { Users } from '../api/users.js';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import {
@@ -16,7 +19,6 @@ import {
 import 'react-day-picker/lib/style.css';
 import Nav from './Nav.jsx';
 import WebcalLinkUI from './WebcalLinkUI.jsx';
-import Select2 from 'react-select2-wrapper';
 
 
 // App component - represents the whole app
@@ -25,10 +27,15 @@ class App extends React.Component {
         super(props);
         this.handleDayChange = this.handleDayChange.bind(this);
         this.changeDayBy = this.changeDayBy.bind(this);
-        this.state = {date: new Date()}; //TODO optionally take as a param
+        this.state = {
+          date: new Date(),
+          others: []
+        }; //TODO optionally take as a param
+
     }
 
     render() {
+
         return (
             <div>
                 <Nav />
@@ -53,8 +60,22 @@ class App extends React.Component {
                     <span className="glyphicon glyphicon-chevron-right"/>
                   </button>
                   <br/>
+                  <br/>
 
                   {/*TODO: person selection should be a component*/}
+                  <Select
+                    style={{width: '100%'}}
+                    value={this.state.others}
+                    valueKey="_id"
+                    name="other-people"
+                    multi={true}
+                    options={this.props.users}
+                    onChange={(e)=>{
+                      this.setState({others: e});
+                    }}
+                  />
+                  <br/>
+
 
                   <CalendarDay
                         date={ this.state.date }
@@ -66,6 +87,7 @@ class App extends React.Component {
                            return sameDay(event.start, this.state.date);
                         }, this)
                         }
+                        others={ this.state.others }
                     />
                 </div>
             </div>
@@ -97,12 +119,14 @@ App.propTypes = {
 window.CalendarTokens = CalendarTokens;
 window.Labs = Labs;
 window.Periods = Periods;
+window.Users = Users;
 
 export default createContainer(() => {
     Meteor.subscribe("calendarTokens");
     Meteor.subscribe("labs");
     Meteor.subscribe("periods");
     Meteor.subscribe("schedules");
+    Meteor.subscribe("allUsers");
 
     var periodsDoc = Periods.findOne({owner: Meteor.userId()});
 
@@ -111,5 +135,9 @@ export default createContainer(() => {
       labs: Labs.find({ owner: Meteor.userId() }).fetch(),
       periods: (periodsDoc ? periodsDoc.periods : []),
       currentUser: Meteor.user(),
+      users: _.map(Users.find().fetch(), function(val, index) {
+        val.label = val.profile?val.profile.name:val.username;
+        val.id = index;
+        return val; }),
     };
 }, App);
