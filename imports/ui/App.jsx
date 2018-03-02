@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { PropTypes } from "prop-types";
-import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import CalendarDay from './CalendarDay.jsx'
 import { CalendarTokens } from '../api/calendarTokens.js';
-import { Labs } from '../api/labs.js';
-import { Periods } from '../api/periods.js';
 import { Users } from '../api/users.js';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import {
@@ -44,19 +42,27 @@ class App extends React.Component {
                 <div className="container-fluid">
 
                   {/*TODO: date selection should be a component*/}
-                  <button className="btn btn-default btn-xs" onClick={this.changeDayBy.bind(this, -1)}>
+                  <button className="btn btn-default btn-xs" onClick={event => {
+                    let d = this.state.date;
+                    this.setState({date: moment(d).subtract(1, 'days').toDate()})
+                  }}>
                     <span className="glyphicon glyphicon-chevron-left"/>
                   </button>
                   <DayPickerInput
                     formatDate={formatDate}
+                    value={this.state.date}
                     parseDate={parseDate}
-                    disabledDays={{ daysOfWeek: [0, 6] }}
-                    selectedDays={this.state.date}
                     placeholder={`${formatDate(this.state.date)}`}
                     onDayChange={this.handleDayChange}
-                    todayButton="Go to Today"
+                    dayPickerProps={{
+                      todayButton: "Go to Today",
+                      disabledDays: { daysOfWeek: [0, 6] }
+                    }}
                   />
-                  <button className="btn btn-default btn-xs" onClick={this.changeDayBy.bind(this, 1)}>
+                  <button className="btn btn-default btn-xs" onClick={event => {
+                    let d = this.state.date;
+                    this.setState({date: moment(d).add(1, 'days').toDate()})
+                  }}>
                     <span className="glyphicon glyphicon-chevron-right"/>
                   </button>
                   <br/>
@@ -79,14 +85,6 @@ class App extends React.Component {
 
                   <CalendarDay
                         date={ this.state.date }
-                        periods={ this.props.periods.filter(function(event) {
-                            return sameDay(event.start, this.state.date);
-                        }, this)
-                        }
-                        labs={ this.props.labs.filter(function(event) {
-                           return sameDay(event.start, this.state.date);
-                        }, this)
-                        }
                         others={ this.state.others }
                     />
                 </div>
@@ -97,43 +95,27 @@ class App extends React.Component {
   handleDayChange(day) {
     this.setState({ date: day });
   }
+
   changeDayBy(incr) {
     let d = this.state.date;
     d.setDate(d.getDate() + incr);
-    this.setState({date: d});
+    this.handleDayChange(d);
   }
 }
 
-function sameDay(d1, d2) {
-  return d1.getFullYear() === d2.getFullYear()
-    && d1.getDate() === d2.getDate()
-    && d1.getMonth() === d2.getMonth();
-}
 
 App.propTypes = {
-    labs: PropTypes.array.isRequired,
-    periods: PropTypes.array,
     currentUser: PropTypes.object,
 };
 
-window.CalendarTokens = CalendarTokens;
-window.Labs = Labs;
-window.Periods = Periods;
-window.Users = Users;
 
 export default createContainer(() => {
     Meteor.subscribe("calendarTokens");
-    Meteor.subscribe("labs");
-    Meteor.subscribe("periods");
     Meteor.subscribe("schedules");
     Meteor.subscribe("allUsers");
 
-    var periodsDoc = Periods.findOne({owner: Meteor.userId()});
-
     return {
       token: CalendarTokens.findOne({ owner: Meteor.userId() }),
-      labs: Labs.find({ owner: Meteor.userId() }).fetch(),
-      periods: (periodsDoc ? periodsDoc.periods : []),
       currentUser: Meteor.user(),
       users: _.map(Users.find().fetch(), function(val, index) {
         val.label = val.profile?val.profile.name:val.username;
