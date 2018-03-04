@@ -19,7 +19,6 @@ import 'react-day-picker/lib/style.css';
 export class CalendarUI extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.changeDayBy = this.changeDayBy.bind(this);
     this.state = {
@@ -29,8 +28,6 @@ export class CalendarUI extends React.Component {
   }
 
   render() {
-    that=this;
-    console.log(this.props.currentUser);
     return (
       <div>
 
@@ -98,13 +95,10 @@ export class CalendarUI extends React.Component {
   }
 }
 
-
 CalendarUI.propTypes = {
   currentUser: PropTypes.object,
   users: PropTypes.array
 };
-
-
 
 export default CalendarUIContainer = withTracker(({props}) => {
   const usersHandle = Meteor.subscribe("users");

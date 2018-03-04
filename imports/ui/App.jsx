@@ -8,8 +8,9 @@ import Public from './components/Public';
 import WebcalLinkUI from "./WebcalLinkUI";
 import CalendarUI from "./CalendarUI";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import NotFound from "./pages/NotFound";
-import Nav from "./Nav";
+import Navigation from "./Nav";
 import { CalendarTokens } from '../api/calendarTokens.js';
 
 class App extends React.Component {
@@ -27,7 +28,7 @@ class App extends React.Component {
     return (
       <Router>
       <div className="App">
-      <Nav />
+      <Navigation {...props} {...state} />
       {!this.props.token && this.props.authenticated ?
       <WebcalLinkUI/>
       : ''}
@@ -35,7 +36,7 @@ class App extends React.Component {
       <Authenticated exact name="index" path="/" component={CalendarUI} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
       {/*make Login the react login */}
       <Public path="/login" component={Login} {...props} {...state} />
-      {/*<Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />*/}
+      <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
       <Route component={NotFound} />
     </Switch>
     </div>
