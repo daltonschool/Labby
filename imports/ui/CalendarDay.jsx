@@ -10,7 +10,6 @@ import CalendarEvent from './CalendarEvent.jsx';
 
 class CalendarDay extends Component {
     render() {
-      that = this;
         return <div className="calendarColumn col-md-2">
             <h2>
                 <Moment format="M/D/YY">
@@ -30,14 +29,7 @@ class CalendarDay extends Component {
     }
 }
 
-// var otherScheds = this.state.others.map((o)=>{
-//   return Periods.findOne({owner: o._id}).periods;
-// })
 
-// CalendarDay.propTypes = {
-//   events: PropTypes.array.isRequired,
-// };
-//
 export default createContainer(({others, date}) => {
   Meteor.subscribe("periods");
   Meteor.subscribe("labs");
@@ -48,7 +40,7 @@ export default createContainer(({others, date}) => {
     .filter((event) => { return DateUtils.isSameDay(event.start, date); }, this);
 
   return {
-    events: e, //TODO: events should also include labs
+    events: e,
     others: others.map(o => {
       o.periods = Periods.findOne({owner: o._id}).periods.filter(
         function(event) {

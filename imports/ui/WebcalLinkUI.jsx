@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import classnames from 'classnames';
 import linkState from 'linkstate';
 
 export default class WebcalLinkUI extends Component {

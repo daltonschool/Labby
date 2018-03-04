@@ -1,0 +1,13 @@
+{
+  "public": {},
+  "private": {
+    "MAIL_URL": "",
+    "OAuth": {
+      "google": {
+        "clientId": "7008578004-ll9mkjv85qp4aoe074fk5evonbip9hlh.apps.googleusercontent.com",
+        "secret": "OT7qsOb3Sd7vmfR-yQGDmqL9",
+        "loginStyle": "popup"
+      }
+    }
+  }
+}
