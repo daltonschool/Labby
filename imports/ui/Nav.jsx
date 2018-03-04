@@ -14,8 +14,9 @@ const Navigation = props => (
           </Navbar.Brand>
           <Navbar.Toggle />
       </Navbar.Header>
-      <Navbar.Collapse>
-        {props.authenticated &&
+
+     {props.authenticated &&
+     <Navbar.Collapse>
         <Nav pullRight>
             <NavDropdown eventKey={2} title={props.name} id="user-nav-dropdown">
                 <LinkContainer to="/profile">
@@ -25,9 +26,8 @@ const Navigation = props => (
                 <MenuItem eventKey={2.2} onClick={() => props.history.push('/logout')}>Logout</MenuItem>
             </NavDropdown>
         </Nav>
-
-        }
-      </Navbar.Collapse>
+     </Navbar.Collapse>
+     }
   </Navbar>
 );
 
