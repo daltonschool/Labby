@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import Moment from 'react-moment';
 import { Labs } from '../api/labs.js';
 import { Periods } from '../api/periods.js';
@@ -17,7 +17,7 @@ class CalendarDay extends Component {
                 </Moment>
             </h2>
             { this.props.events.map(function(event) {
-                return <CalendarEvent key={event._id} event={event} />; //create a key
+                return <CalendarEvent event={event} />; //create a key?
 
             })}
 
@@ -30,7 +30,7 @@ class CalendarDay extends Component {
 }
 
 
-export default createContainer(({others, date}) => {
+export default withTracker(({others, date}) => {
   Meteor.subscribe("periods");
   Meteor.subscribe("labs");
 
@@ -45,9 +45,9 @@ export default createContainer(({others, date}) => {
       o.periods = Periods.findOne({owner: o._id}).periods.filter(
         function(event) {
         return DateUtils.isSameDay(event.start, date);
-      }, this).map(o=>{return _.omit(o, 'name')})
+      }, this).map(o=>{return _.omit(o, 'name')});
       return o; //TOOD: include labs as well
     })
 
   }
-}, CalendarDay);
+})(CalendarDay);

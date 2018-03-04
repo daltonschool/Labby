@@ -11,7 +11,7 @@ export default class AccountsUIWrapper extends Component {
       services={['google']}
       emailMessage={{
         offset: 100,
-        text: 'Log In with an Email Address',
+        text: 'Log In with Google',
       }}
     />
   }
