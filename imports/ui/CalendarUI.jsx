@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Meteor } from 'meteor/meteor';
 import CalendarDay from './CalendarDay.jsx'
 import Select from 'react-select';
+import AddEventModal from './components/AddEventModal'
 import { _ } from 'meteor/underscore';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Users } from '../api/users';
@@ -23,7 +24,8 @@ export class CalendarUI extends React.Component {
     this.changeDayBy = this.changeDayBy.bind(this);
     this.state = {
       date: new Date(),
-      others: []
+      others: [],
+      addModalOpen: false
     }; //TODO optionally take as a param
   }
 
@@ -79,9 +81,27 @@ export class CalendarUI extends React.Component {
             date={ this.state.date }
             others={ this.state.others }
           />
+
+          <button className="btn btn-default btn-xs" onClick={this.toggleModal}>
+            <span className="glyphicon glyphicon-plus" />
+            Add Event
+          </button>
+
+          <AddEventModal show={this.state.isOpen}
+                 onClose={this.toggleModal}>
+            Here's some content for the modal
+          </AddEventModal>
+
+
         </div>
       </div>
     );
+  }
+
+  toggleModal = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   }
 
   handleDayChange(day) {
