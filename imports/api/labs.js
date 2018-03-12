@@ -31,7 +31,7 @@ Meteor.methods({
             createdAt: new Date(),
             owner: this.userId,
             participants: lab.participants,
-            startTime: lab.startTime,
+            startTime: lab.startTime,  // i think this should be start and end to match with the periods schema
             endTime: lab.endTime,
         });
     },
