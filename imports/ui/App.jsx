@@ -17,6 +17,7 @@ import 'react-day-picker/lib/style.css';
 import Nav from './Nav.jsx';
 import WebcalLinkUI from './WebcalLinkUI.jsx';
 import Select2 from 'react-select2-wrapper';
+import styles from './CalCSS.css';
 
 
 // App component - represents the whole app

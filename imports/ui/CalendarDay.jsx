@@ -10,12 +10,13 @@ import CalendarEvent from './CalendarEvent.jsx';
 export default class CalendarDay extends Component {
     render() {
         that = this;
-        return <div className="calendarColumn col-md-2">
-            <h2>
+        return <div className="flex-container">
+            {/*flexbox line above*/}
+            <div>
                 <Moment format="M/D/YY">
                   {this.props.date.toISOString()}
                 </Moment>
-            </h2>
+            </div>
             { this.props.periods && this.props.periods.map(function(event) {
                 return <CalendarEvent event={event} />; //create a key
             })}

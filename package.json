@@ -9,7 +9,7 @@
     "bcrypt": "^1.0.3",
     "classnames": "^2.2.5",
     "jquery": "^2.2.4",
-    "linkstate": "^1.1.0",
+    "linkstate": "^1.1.1",
     "meteor-node-stubs": "~0.2.0",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
