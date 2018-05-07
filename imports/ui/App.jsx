@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
-import { PropTypes } from "prop-types";
-import ReactDOM from 'react-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import CalendarDay from './CalendarDay.jsx'
+import { withTracker } from 'meteor/react-meteor-data';
+import Authenticated from './components/Authenticated';
+import Public from './components/Public';
+import WebcalLinkUI from "./WebcalLinkUI";
+import CalendarUI from "./CalendarUI";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
+import NotFound from "./pages/NotFound";
+import Navigation from "./Nav";
 import { CalendarTokens } from '../api/calendarTokens.js';
-import { Labs } from '../api/labs.js';
-import { Periods } from '../api/periods.js';
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import {
@@ -22,95 +27,61 @@ import styles from './CalCSS.css';
 
 // App component - represents the whole app
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleDayChange = this.handleDayChange.bind(this);
-        this.changeDayBy = this.changeDayBy.bind(this);
-        this.state = {date: new Date()}; //TODO optionally take as a param
-    }
-
-    render() {
-        return (
-            <div>
-                <Nav />
-                {!this.props.token && <WebcalLinkUI />}
-
-                <div className="container-fluid">
-
-                  {/*TODO: date selection should be a component*/}
-                  <button className="btn btn-default btn-xs" onClick={this.changeDayBy.bind(this, -1)}>
-                    <span className="glyphicon glyphicon-chevron-left"/>
-                  </button>
-                  <DayPickerInput
-                    formatDate={formatDate}
-                    parseDate={parseDate}
-                    disabledDays={{ daysOfWeek: [0, 6] }}
-                    selectedDays={this.state.date}
-                    placeholder={`${formatDate(this.state.date)}`}
-                    onDayChange={this.handleDayChange}
-                    todayButton="Go to Today"
-                  />
-                  <button className="btn btn-default btn-xs" onClick={this.changeDayBy.bind(this, 1)}>
-                    <span className="glyphicon glyphicon-chevron-right"/>
-                  </button>
-                  <br/>
-
-                  {/*TODO: person selection should be a component*/}
-
-                  <CalendarDay
-                        date={ this.state.date }
-                        periods={ this.props.periods.filter(function(event) {
-                            return sameDay(event.start, this.state.date);
-                        }, this)
-                        }
-                        labs={ this.props.labs.filter(function(event) {
-                           return sameDay(event.start, this.state.date);
-                        }, this)
-                        }
-                    />
-                </div>
-            </div>
-        );
-    }
-
-  handleDayChange(day) {
-    this.setState({ date: day });
+  constructor(props) {
+    super(props);
+    this.state = { afterLoginPath: null };
   }
-  changeDayBy(incr) {
-    let d = this.state.date;
-    d.setDate(d.getDate() + incr);
-    this.setState({date: d});
+
+  setAfterLoginPath = function(afterLoginPath) {
+    this.setState({ afterLoginPath });
+  }.bind(this);
+
+  render() {
+    const { props, state, setAfterLoginPath } = this;
+    return (
+      <Router>
+      <div className="App">
+      <Navigation {...props} {...state} />
+      {!this.props.token && this.props.authenticated ?
+      <WebcalLinkUI/>
+      : ''}
+    <Switch>
+      <Authenticated exact name="index" path="/" component={CalendarUI} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+      {/*make Login the react login */}
+      <Public path="/login" component={Login} {...props} {...state} />
+      <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
+      <Route component={NotFound} />
+    </Switch>
+    </div>
+  </Router>
+    );
   }
 }
 
-function sameDay(d1, d2) {
-  return d1.getFullYear() === d2.getFullYear()
-    && d1.getDate() === d2.getDate()
-    && d1.getMonth() === d2.getMonth();
-}
-
-App.propTypes = {
-    labs: PropTypes.array.isRequired,
-    periods: PropTypes.array,
-    currentUser: PropTypes.object,
+App.defaultProps = {
+  userId: '',
 };
 
-window.CalendarTokens = CalendarTokens;
-window.Labs = Labs;
-window.Periods = Periods;
+App.propTypes = {
+  userId: PropTypes.string,
+  authenticated: PropTypes.bool.isRequired,
+};
 
-export default createContainer(() => {
-    Meteor.subscribe("calendarTokens");
-    Meteor.subscribe("labs");
-    Meteor.subscribe("periods");
-    Meteor.subscribe("schedules");
+export default withTracker(() => {
+  const loggingIn = Meteor.loggingIn();
+  const user = Meteor.user();
+  const userId = Meteor.userId();
+  const name = user && user.profile && user.profile.name;
+  Meteor.subscribe("calendarTokens");
 
-    var periodsDoc = Periods.findOne({owner: Meteor.userId()});
 
-    return {
-      token: CalendarTokens.findOne({ owner: Meteor.userId() }),
-      labs: Labs.find({ owner: Meteor.userId() }).fetch(),
-      periods: (periodsDoc ? periodsDoc.periods : []),
-      currentUser: Meteor.user(),
-    };
-}, App);
+  return {
+    loggingIn,
+    authenticated: !loggingIn && !!userId,
+    name: name,
+    userId,
+    token: CalendarTokens.findOne({ owner: Meteor.userId() }),
+  };
+})(App);
+
+

@@ -28,3 +28,7 @@ accounts-google@1.3.1
 shell-server
 google-config-ui
 dynamic-import
+useraccounts:bootstrap
+themeteorchef:bert
+ddp-rate-limiter
+service-configuration

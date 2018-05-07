@@ -1,42 +1,44 @@
 import React, { Component } from 'react';
 import { PropTypes } from "prop-types";
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
-
-export default class Nav extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-        };
-    }
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
+const Navigation = props => (
+  <Navbar>
+      <Navbar.Header>
+          <Navbar.Brand>
+              <Link to="/">Labby</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+      </Navbar.Header>
 
-    render() {
-        return (
-            <header>
-                <nav className="navbar navbar-default">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                            </button>
-                            <a className="navbar-brand" href="#">Labby</a>
-                        </div>
-                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul className="nav navbar-nav">
-                                <li><AccountsUIWrapper /></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-        );
-    }
-}
+     {props.authenticated &&
+     <Navbar.Collapse>
+        <Nav pullRight>
+            <NavDropdown eventKey={2} title={props.name} id="user-nav-dropdown">
+                <LinkContainer to="/profile">
+                    <NavItem eventKey={2.1} href="/profile">Profile</NavItem>
+                </LinkContainer>
+                <MenuItem divider />
+                <MenuItem eventKey={2.2} onClick={() => props.history.push('/logout')}>Logout</MenuItem>
+            </NavDropdown>
+        </Nav>
+     </Navbar.Collapse>
+     }
+  </Navbar>
+);
+
+Navigation.defaultProps = {
+  name: '',
+};
+
+Navigation.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+  name: PropTypes.string,
+  history: PropTypes.object.isRequired,
+};
+
+export default withRouter(Navigation);
