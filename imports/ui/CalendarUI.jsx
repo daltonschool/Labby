@@ -87,8 +87,14 @@ export class CalendarUI extends React.Component {
             Add Event
           </button>
 
-          <AddEventModal show={this.state.isOpen}
-                 onClose={this.toggleModal}>
+          <AddEventModal
+              show={this.state.isOpen}
+              onClose={this.toggleModal}
+              particpants={this.state.others}
+              owner={this.props.currentUser}
+              start={new Date().setHours(10)}
+              end={new Date().setHours(11)}
+          >
             Here's some content for the modal
           </AddEventModal>
 

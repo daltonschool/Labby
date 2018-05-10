@@ -16,10 +16,14 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     'labs.insert'(lab) {
-        check(lab.name, String);
+        check(lab.eventname, String);
         check(lab.participants, Array);
-        check(lab.startTime, Date);
-        check(lab.endTime, Date);
+        check(lab.start, Date);
+        check(lab.end, Date);
+        //include an owner!
+        // var token = CalendarTokens.findOne({
+        //     owner: userId
+        // });
 
         // Make sure the user is logged in before inserting a lab
         // if (! this.userId) {
@@ -31,9 +35,18 @@ Meteor.methods({
             createdAt: new Date(),
             owner: this.userId,
             participants: lab.participants,
-            startTime: lab.startTime,
-            endTime: lab.endTime,
+            start: lab.start,
+            end: lab.end,
         });
+
+        console.log({
+            name: lab.name,
+            createdAt: new Date(),
+            owner: this.userId,
+            participants: lab.participants,
+            start: lab.start,
+            end: lab.end,
+        })
     },
     'labs.remove'(labId) {
         check(labId, String);

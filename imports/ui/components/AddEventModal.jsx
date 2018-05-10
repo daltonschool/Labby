@@ -1,3 +1,5 @@
+//To run: meteor --settings=settings-example.json
+
 import React from 'react';
 import Modal from 'react-modal';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -21,9 +23,12 @@ class AddEventModal extends React.Component {
 
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.onsubmit= this.onsubmit.bind(this);
 
-    this.state = {eventname: "lab"};
+
+      this.state = {eventname: "lab", participants: ["you"]};
+
   }
 
   afterOpenModal() {
@@ -40,10 +45,44 @@ class AddEventModal extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    this.setState({
+      $("#img-clck").click(codeAddress);
+
+
+      this.setState({
       [name]: value
     });
   }
+
+  //HART from an onsubmit function, call the meteor method labs.insert
+
+    onsubmit(event) {
+        event.preventDefault();
+        // let st = this.start;
+        // let en = this.end;
+        let st = new Date();
+        let en = new Date();
+
+
+        console.log({
+            eventname: this.state.eventname,
+            participants: this.state.participants,
+            start: st,
+            end: en
+        });
+
+
+
+
+        Meteor.call("labs.insert",
+            {
+              eventname: this.state.eventname,
+              participants: this.state.participants,
+              start: st,
+              end: en
+            }
+        );
+    }
+
 
   render() {
     return (
@@ -78,7 +117,25 @@ class AddEventModal extends React.Component {
                 onChange={this.handleChange}
               />
             </FormGroup>
+
+          <FormGroup>
+            <ControlLabel>Participants</ControlLabel>
+            <FormControl
+                name="participants"
+                type="text"
+                value={this.state.participants}
+                onChange={this.handleChange}
+              />
+          </FormGroup>
+            <button
+            onClick={this.onsubmit}
+              >
+
+            Add Event</button>
+
           </form>
+
+
 
         </Modal>
       </div>
@@ -86,10 +143,13 @@ class AddEventModal extends React.Component {
   }
 }
 
-export default withTracker(({show, participants, start, end}) => {
+export default withTracker(({show, eventname, participants, start, end, owner}) => {
   return {
-    modalIsOpen: show,
+    modalIsOpen:
+    show,
+    eventname,
     participants,
+    owner,
     start,
     end
   };
