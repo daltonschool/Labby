@@ -13,6 +13,18 @@ import NotFound from "./pages/NotFound";
 import Navigation from "./Nav";
 import { CalendarTokens } from '../api/calendarTokens.js';
 
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import {
+  formatDate,
+  parseDate,
+} from 'react-day-picker/moment';
+import 'react-day-picker/lib/style.css';
+import Nav from './Nav.jsx';
+import Select2 from 'react-select2-wrapper';
+import styles from './CalCSS.css';
+
+
+// App component - represents the whole app
 class App extends React.Component {
   constructor(props) {
     super(props);
